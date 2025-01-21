@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/clicks")
-class ClicksController(val clicksService: ClicksService) {
+class ClicksController(private val clicksService: ClicksService) {
 
     @PostMapping("/add/{id}")
     suspend fun addClick(@PathVariable("id") id: Long) {

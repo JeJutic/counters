@@ -11,8 +11,8 @@ import reactor.core.publisher.Mono
 
 @Component
 class ClicksUpdatesHandler(
-    val clicksService: ClicksService,
-    val objectMapper: ObjectMapper
+    private val clicksService: ClicksService,
+    private val objectMapper: ObjectMapper
 ) : WebSocketHandler {
 
     override fun handle(session: WebSocketSession): Mono<Void> {

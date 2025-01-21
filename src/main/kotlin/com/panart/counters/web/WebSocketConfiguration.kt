@@ -7,7 +7,9 @@ import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping
 
 
 @Configuration
-class WebSocketConfiguration(val webSocketHandler: ClicksUpdatesHandler) {
+class WebSocketConfiguration(
+    private val webSocketHandler: ClicksUpdatesHandler
+) {
 
     @Bean
     fun webSocketHandlerMapping(): HandlerMapping {

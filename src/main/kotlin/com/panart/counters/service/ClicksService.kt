@@ -19,7 +19,9 @@ interface ClicksService {
 }
 
 @Service
-class ClicksServiceImpl(val redisOperations: ReactiveRedisOperations<String, Long>) : ClicksService {
+class ClicksServiceImpl(
+    private val redisOperations: ReactiveRedisOperations<String, Long>
+) : ClicksService {
     private val infoFlowInner: MutableStateFlow<List<ClicksInfo>> =
         MutableStateFlow(emptyList())
     override val infoFlow: StateFlow<List<ClicksInfo>>
