@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: cv
+
+app:
+  clicks-fetch-interval-ms: 100

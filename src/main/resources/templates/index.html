@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counters with WebSocket</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = [1, 2, 3, 4, 5];
+            const counterElements = {};
+
+            counters.forEach(id => {
+                const counterValueElement = document.getElementById(`counter-value-${id}`);
+                counterElements[id] = counterValueElement;
+
+                const button = document.getElementById(`counter-button-${id}`);
+                button.addEventListener("click", () => {
+                    fetch(`http://localhost:8080/clicks/add/${id}`, {
+                        method: 'POST'
+                    });
+                });
+            });
+
+            const socket = new WebSocket("ws://localhost:8080/clicks/updates");
+
+            socket.addEventListener("message", event => {
+                const updates = JSON.parse(event.data);
+                updates.forEach(({ id, cnt }) => {
+                    if (counterElements[id]) {
+                        counterElements[id].textContent = cnt;
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Counters</h1>
+
+<div>
+    <div id="counter-1">
+        <span>Counter 1:</span>
+        <span id="counter-value-1">0</span>
+        <button id="counter-button-1">Increase</button>
+    </div>
+
+    <div id="counter-2">
+        <span>Counter 2:</span>
+        <span id="counter-value-2">0</span>
+        <button id="counter-button-2">Increase</button>
+    </div>
+
+    <div id="counter-3">
+        <span>Counter 3:</span>
+        <span id="counter-value-3">0</span>
+        <button id="counter-button-3">Increase</button>
+    </div>
+
+    <div id="counter-4">
+        <span>Counter 4:</span>
+        <span id="counter-value-4">0</span>
+        <button id="counter-button-4">Increase</button>
+    </div>
+
+    <div id="counter-5">
+        <span>Counter 5:</span>
+        <span id="counter-value-5">0</span>
+        <button id="counter-button-5">Increase</button>
+    </div>
+</div>
+</body>
+</html>
